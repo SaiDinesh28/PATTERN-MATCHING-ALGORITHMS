@@ -1,0 +1,25 @@
+vector<int> calculateZ(string s){
+    int sz=s.size();
+    int left=0;
+    int right=0;
+    vector<int>Z(s.size(),0);
+    for(int k=0;k<sz;k++){
+        if(k>right){
+            left=right=k;
+            while(right<sz && s[right]==s[right-left]) right++;
+            Z[k]=right-left;
+            right--;
+        }
+        else {
+            int k1=k-left;
+            if(Z[k1]<right-k+1 ) Z[k]=Z[k1];
+            else{
+                left=k;
+                while(right<sz && s[right]==s[right-left])  right++;
+                Z[k]=right-left;
+                right--;
+            }
+        }
+    }
+    return Z;
+}
